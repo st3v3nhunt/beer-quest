@@ -3,7 +3,12 @@ version: '3.8'
 services:
   beer-quest:
     build:
+      args:
+        NODE_ENV: production
       context: .
-    image: beer-quest
     container_name: beer-quest
     environment: {}
+    image: beer-quest
+    volumes:
+      - ./src/:/home/node/app/src/
+      - ./package.json:/home/node/app/package.json
