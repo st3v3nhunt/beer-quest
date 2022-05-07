@@ -26,6 +26,8 @@
   },
   "standard": {
     "globals": [
+      "beforeAll",
+      "beforeEach",
       "describe",
       "expect",
       "jest",

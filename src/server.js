@@ -1,5 +1,5 @@
 const app = require('./app')
-const venueRepo = require('./repositories/venue')
+const venueRepo = require('./repositories/venues')
 
 const port = 3000
 

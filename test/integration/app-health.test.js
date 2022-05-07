@@ -1,7 +1,7 @@
 const request = require('supertest')
 const app = require('../../src/app')
 
-jest.mock('../../src/repositories/venue')
+jest.mock('../../src/repositories/venues')
 
 describe('health check end points', () => {
   test('readiness - GET /healthy returns 200', async () => {

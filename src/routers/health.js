@@ -1,5 +1,5 @@
 const express = require('express')
-const venueRepo = require('../repositories/venue')
+const venueRepo = require('../repositories/venues')
 
 const router = express.Router()
 

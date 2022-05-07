@@ -12,6 +12,4 @@ async function loadData () {
   return data
 }
 
-module.exports = {
-  loadData
-}
+module.exports = loadData

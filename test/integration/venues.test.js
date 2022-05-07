@@ -1,52 +1,59 @@
 const request = require('supertest')
 const app = require('../../src/app')
 
-jest.mock('../../src/repositories/venue')
-const venueRepo = require('../../src/repositories/venue')
+jest.mock('../../src/repositories/venues')
+const venuesRepo = require('../../src/repositories/venues')
 
 describe('venues API', () => {
-  test('GET /venues returns all venues', async () => {
-    const data = [{ a: 'here' }]
-    venueRepo.getAll.mockResolvedValue(data)
+  beforeEach(() => {
+    jest.resetAllMocks()
+  })
+
+  test('GET /venues returns venues', async () => {
+    const venues = [{}]
+    venuesRepo.getAll.mockResolvedValue(venues)
 
     const res = await request(app).get('/venues')
 
     expect(res.status).toEqual(200)
     expect(res.headers['content-type']).toEqual('application/json; charset=utf-8')
-    expect(res.body).toEqual(data)
+    expect(res.body).toEqual(venues)
+    expect(venuesRepo.getAll).toHaveBeenCalledTimes(1)
+    expect(venuesRepo.getAll).toHaveBeenCalledWith(50)
   })
 
-  test('GET /venues/location/lat/lng returns venues ordered by distance from point', async () => {
-    const lat = 55
-    const lng = -1.5
-    const data = [{ id: 1, lat: 54, lng: -1.5 }, { id: 2, lat: 55, lng: -1.5 }]
-    venueRepo.getAll.mockResolvedValue(data)
+  test('GET /venues?size=n returns n venues', async () => {
+    const venueCount = 10
+    const venues = [{}]
+    venuesRepo.getAll.mockResolvedValue(venues)
 
-    const res = await request(app).get(`/venues/location/${lat}/${lng}`)
+    const res = await request(app).get(`/venues?size=${venueCount}`)
 
     expect(res.status).toEqual(200)
     expect(res.headers['content-type']).toEqual('application/json; charset=utf-8')
-    expect(res.body.length).toEqual(data.length)
-    expect(res.body[0].id).toEqual(2)
-    expect(res.body[1].id).toEqual(1)
-    expect(res.body[0]).not.toHaveProperty('distance')
-    expect(res.body[1]).not.toHaveProperty('distance')
+    expect(res.body).toEqual(venues)
+    expect(venuesRepo.getAll).toHaveBeenCalledTimes(1)
+    expect(venuesRepo.getAll).toHaveBeenCalledWith(venueCount)
   })
 
-  test('GET /venues/location/lat/lng?dist=true returns venues ordered by distance from point with distance', async () => {
-    const lat = 55
-    const lng = -1.5
-    const data = [{ id: 1, lat: 54, lng: -1.5 }, { id: 2, lat: 55, lng: -1.5 }]
-    venueRepo.getAll.mockResolvedValue(data)
+  test.each([
+    { dist: 'true', includeDistance: true },
+    { dist: 't', includeDistance: false },
+    { dist: undefined, includeDistance: false },
+    { dist: 'false', includeDistance: false },
+    { dist: '', includeDistance: false }
+  ])('GET /venues/location/lat/lng?[dist=$dist] returns venues ordered by distance', async ({ dist, includeDistance }) => {
+    const lat = '55'
+    const lng = '-1.5'
+    const venues = [{}]
+    venuesRepo.getByLocation.mockResolvedValue(venues)
 
-    const res = await request(app).get(`/venues/location/${lat}/${lng}?dist=true`)
+    const res = await request(app).get(`/venues/location/${lat}/${lng}?dist=${dist}`)
 
     expect(res.status).toEqual(200)
     expect(res.headers['content-type']).toEqual('application/json; charset=utf-8')
-    expect(res.body.length).toEqual(data.length)
-    expect(res.body[0].id).toEqual(2)
-    expect(res.body[0].distance).toEqual(0)
-    expect(res.body[1].id).toEqual(1)
-    expect(res.body[1].distance).toEqual(111319)
+    expect(res.body).toEqual(venues)
+    expect(venuesRepo.getByLocation).toHaveBeenCalledTimes(1)
+    expect(venuesRepo.getByLocation).toHaveBeenCalledWith({ lat, lng }, includeDistance)
   })
 })
