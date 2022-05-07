@@ -1,0 +1,5 @@
+version: '3.8'
+
+services:
+  beer-quest:
+    command: npm run test:watch

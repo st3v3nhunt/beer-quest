@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  beer-quest:
+    environment:
+      NODE_ENV: test
+    image: beer-quest-development
+    container_name: beer-quest-test
+    command: npm run test
+    volumes:
+      - ./test:/home/node/app/test
+      - ./test-output:/home/node/app/test-output
+      - ./jest.config.js:/home/node/app/jest.config.js
