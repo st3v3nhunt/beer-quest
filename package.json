@@ -13,6 +13,7 @@
   "author": "st3v3nhunt",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^27.5.0",
     "jest": "^28.1.0",
     "nodemon": "^2.0.7",
     "standard": "^17.0.0",
@@ -23,8 +24,10 @@
     "express": "^4.18.1"
   },
   "standard": {
-    "env": {
-      "jest": true
-    }
+    "globals": [
+      "describe",
+      "expect",
+      "test"
+    ]
   }
 }
