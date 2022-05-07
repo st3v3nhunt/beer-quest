@@ -2,7 +2,10 @@ const { loadData } = require('../lib/load-data')
 
 let data
 async function init () {
-  data = await loadData()
+  if (!data) {
+    console.log('Initialising venue repo...')
+    data = await loadData()
+  }
 }
 
 async function getAll () {
