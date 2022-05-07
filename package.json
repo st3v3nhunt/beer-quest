@@ -1,5 +1,5 @@
 {
-  "name": "starter-node-repo",
+  "name": "beer-quest",
   "version": "1.0.0",
   "description": "A bare bones repo with useful some basics added",
   "main": "src/app.js",

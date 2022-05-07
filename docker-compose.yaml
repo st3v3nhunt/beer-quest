@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  starter-node-repo:
+  beer-quest:
     build:
       context: .
-    image: starter-node-repo
-    container_name: starter-node-repo
+    image: beer-quest
+    container_name: beer-quest
     environment: {}

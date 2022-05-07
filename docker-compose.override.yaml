@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  starter-node-repo:
+  beer-quest:
     build:
       args:
         NODE_ENV: development
-    image: starter-node-repo-development
-    container_name: starter-node-repo-development
+    image: beer-quest-development
+    container_name: beer-quest-development
     ports:
       - "3000:3000"
       - "9229:9229"
