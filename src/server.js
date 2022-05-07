@@ -1,4 +1,4 @@
-const { app } = require('./app')
+const app = require('./app')
 const venueRepo = require('./repositories/venue')
 
 const port = 3000

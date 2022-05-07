@@ -1,13 +1,8 @@
 const express = require('express')
-const venueRepo = require('./repositories/venue')
+const venues = require('./routers/venues')
 
 const app = express()
 
-app.get('/data', async (req, res) => {
-  const data = await venueRepo.getAll()
-  res.send(data)
-})
+app.use('/venues', venues)
 
-module.exports = {
-  app
-}
+module.exports = app
