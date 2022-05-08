@@ -1,7 +1,15 @@
 function createVenues (amount) {
   const venues = []
   for (let i = 0; i < amount; i++) {
-    venues.push({ id: i, lat: `55.${i}`, lng: `-1.5${i}` })
+    venues.push({
+      id: i,
+      lat: `55.${i}`,
+      lng: `-1.5${i}`,
+      stars_amenities: '0',
+      stars_atmosphere: '0',
+      stars_beer: '0',
+      stars_value: '0'
+    })
   }
   return venues
 }
@@ -101,6 +109,27 @@ describe('venues repository', () => {
       })
       const venuesWithDistance = (await venuesRepo.getAll()).filter(x => x.distance !== undefined)
       expect(venuesWithDistance.length).toEqual(0)
+    })
+
+    test.each([
+      { rating: 'amenities', score: '5' },
+      { rating: 'atmosphere', score: '5' },
+      { rating: 'beer', score: '5' },
+      { rating: 'value', score: '5' }
+    ])('results are filtered according to the ratings requested', async ({ rating, score }) => {
+      const venues = createVenues(5)
+      venues[0][`stars_${rating}`] = score
+      await initRepo(venues)
+      const lat = '55'
+      const lng = '-1.5'
+      const coords = { lat, lng }
+      const ratings = { }
+      ratings[rating] = score
+
+      const res = await venuesRepo.getByLocation(coords, false, ratings)
+
+      expect(res.length).toEqual(1)
+      expect(res[0][`stars_${rating}`]).toEqual(score)
     })
   })
 })

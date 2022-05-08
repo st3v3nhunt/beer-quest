@@ -4,21 +4,44 @@ const venuesRepo = require('../repositories/venues')
 const router = express.Router()
 const path = '/venues'
 
-router.get(`${path}/`, async (req, res) => {
-  const size = req.query.size ?? 50
-  const count = parseInt(size, 10)
+function getPageSize (query) {
+  const size = query.size
+  return parseInt(size, 10) || 50
+}
 
-  const data = await venuesRepo.getAll(count)
+function getRatings (query) {
+  const amenities = parseFloat(query.amenities) || 0
+  const atmosphere = parseFloat(query.atmosphere) || 0
+  const beer = parseFloat(query.beer) || 0
+  const value = parseFloat(query.value) || 0
+  return { amenities, atmosphere, beer, value }
+}
+
+function getIncludeDistance (query) {
+  return query.dist === 'true'
+}
+
+function getCoords (params) {
+  const { lat, lng } = params
+  return { lat, lng }
+}
+
+router.get(`${path}/`, async (req, res) => {
+  const pageSize = getPageSize(req.query)
+
+  const data = await venuesRepo.getAll(pageSize)
+
   res.json(data)
 })
 
 router.get(`${path}/location/:lat/:lng`, async (req, res) => {
-  const { dist } = req.query
-  const { lat, lng } = req.params
-  const coords = { lat, lng }
+  // TODO: Validate coords
+  const coords = getCoords(req.params)
+  const includeDistance = getIncludeDistance(req.query)
+  const ratings = getRatings(req.query)
 
-  const includeDistance = dist === 'true'
-  const venues = await venuesRepo.getByLocation(coords, includeDistance)
+  const venues = await venuesRepo.getByLocation(coords, includeDistance, ratings)
+
   res.json(venues)
 })
 
