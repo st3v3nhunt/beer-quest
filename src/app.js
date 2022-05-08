@@ -4,7 +4,7 @@ const venues = require('./routers/venues')
 
 const app = express()
 
-app.use('/venues', venues)
+app.use(venues())
 app.use(health())
 
 module.exports = app

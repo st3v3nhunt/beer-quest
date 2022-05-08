@@ -2,8 +2,9 @@ const express = require('express')
 const venuesRepo = require('../repositories/venues')
 
 const router = express.Router()
+const path = '/venues'
 
-router.get('/', async (req, res) => {
+router.get(`${path}/`, async (req, res) => {
   const size = req.query.size ?? 50
   const count = parseInt(size, 10)
 
@@ -11,7 +12,7 @@ router.get('/', async (req, res) => {
   res.json(data)
 })
 
-router.get('/location/:lat/:lng', async (req, res) => {
+router.get(`${path}/location/:lat/:lng`, async (req, res) => {
   const { dist } = req.query
   const { lat, lng } = req.params
   const coords = { lat, lng }
@@ -21,4 +22,4 @@ router.get('/location/:lat/:lng', async (req, res) => {
   res.json(venues)
 })
 
-module.exports = router
+module.exports = () => router
