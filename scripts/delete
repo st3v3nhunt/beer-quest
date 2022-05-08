@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+az account show > /dev/null
+if [ $? -ne 0 ]; then
+  echo "Please login to Azure account using 'az login'"
+  exit 1
+fi
+
+echo "Running 'az container delete' for beer-quest..."
+az container delete --resource-group x-lab --name beer-quest
+echo "The application has been deleted and is no longer available at http://beer-quest.uksouth.azurecontainer.io:3000"

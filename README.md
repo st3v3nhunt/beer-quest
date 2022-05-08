@@ -71,6 +71,10 @@ A version of the application has been (manually) deployed to
 (ACI) and is available at
 [http://beer-quest.uksouth.azurecontainer.io:3000/venues](http://beer-quest.uksouth.azurecontainer.io:3000/venues).
 
+The deployment can be rerun using the script [deploy](./scripts/deploy).
+
+The deployment can be deleted using the script [delete](./scripts/delete).
+
 ACI isn't the most feature rich product. HTTPS appears to require some
 additional configuration, hence HTTP! Port mapping also doesn't appear to be a
 working feature, hence the specific port.
