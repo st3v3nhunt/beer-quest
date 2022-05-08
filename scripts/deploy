@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+az account show > /dev/null
+if [ $? -ne 0 ]; then
+  echo "Please login to Azure account using 'az login'"
+  exit 1
+fi
+
+echo "Running 'az container create' for beer-quest..."
+az container create --resource-group x-lab --name beer-quest --image index.docker.io/st3v3nhunt/beer-quest:latest --dns-name-label beer-quest --ports 3000 --environment-variables PORT=3000 --command-line "npm run start"
+echo "The application has is available at http://beer-quest.uksouth.azurecontainer.io:3000"
