@@ -1,7 +1,7 @@
 const app = require('./app')
 const venueRepo = require('./repositories/venues')
 
-const port = 3000
+const port = process.env.PORT
 
 app.listen(port, async () => {
   await venueRepo.init()

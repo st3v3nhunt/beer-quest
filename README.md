@@ -63,3 +63,24 @@ run the script with no options i.e. `./scripts/test`. The tests can also be run
 in watch mode by passing `-w` to the script `./scripts/test -w`. This will
 continually run the tests when file changes are detected and is a good option
 to use whilst developing the application.
+
+## Thoughts and considerations
+
+* Some venues appear to be closed, these should probably be filtered out from
+  the dataset either preload or during the load.
+* The dataset is so small it doesn't seem worth introducing a database,
+  obviously this would be different is the size was larger or the data was
+  dynamic.
+* The code for filtering venues based on scores has been kept simple. It would
+  be possible to not run a filter if the rating had not been set however, as
+  each filter operation should have a time complexity of O(n) I decided the
+  additional code complexity wasn't worth the minimal performance hit. Given a
+  larger datasets this might change but then the filtering would likely be done
+  via a database.
+* Some consideration has been given to malicious input, specifically the
+  ratings and include distance params have some level of validation, however,
+  the coords are not in anyway checked. This needs to be worked on.
+* Ratings are taken as a minimum as I figured you'd want to have the good
+  venues returned.
+* The API could do with being documented so clients would have an easy time
+  using it.
