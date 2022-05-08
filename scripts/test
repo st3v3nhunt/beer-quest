@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+set -e # set errexit
+
 project="beer-quest"
 
 if [ "$1" = "-w" ]; then

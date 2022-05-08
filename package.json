@@ -7,6 +7,7 @@
     "start": "node src/server.js",
     "start:watch": "nodemon src/server.js",
     "test": "jest",
+    "test:all": "standard && jest",
     "test:lint": "standard",
     "test:watch": "jest --watchAll"
   },

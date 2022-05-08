@@ -6,7 +6,7 @@ services:
       NODE_ENV: test
     image: beer-quest-development
     container_name: beer-quest-test
-    command: npm run test
+    command: npm run test:all
     volumes:
       - ./test:/home/node/app/test
       - ./test-output:/home/node/app/test-output

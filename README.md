@@ -64,6 +64,23 @@ in watch mode by passing `-w` to the script `./scripts/test -w`. This will
 continually run the tests when file changes are detected and is a good option
 to use whilst developing the application.
 
+## Deployed application
+
+A version of the application has been (manually) deployed to
+[Azure Container Instances](https://azure.microsoft.com/en-us/services/container-instances/#overview)
+(ACI) and is available at
+[http://beer-quest.uksouth.azurecontainer.io:3000/venues](http://beer-quest.uksouth.azurecontainer.io:3000/venues).
+
+ACI isn't the most feature rich product. HTTPS appears to require some
+additional configuration, hence HTTP! Port mapping also doesn't appear to be a
+working feature, hence the specific port.
+
+## Pushing images to Docker Hub
+
+Images are pushed to
+[hub.docker.com/repository/docker/st3v3nhunt/beer-quest](https://hub.docker.com/repository/docker/st3v3nhunt/beer-quest)
+on Docker Hub for every commit to `main`.
+
 ## Thoughts and considerations
 
 * Some venues appear to be closed, these should probably be filtered out from
@@ -85,20 +102,5 @@ to use whilst developing the application.
 * The API could do with being documented so clients would have an easy time
   using it.
 * It would be good to have tags create images with the appropriate tag.
-
-## Deployed application
-
-A version of the application has been (manually) deployed to
-[Azure Container Instances](https://azure.microsoft.com/en-us/services/container-instances/#overview)
-(ACI) and is available at
-[http://beer-quest.uksouth.azurecontainer.io:3000/venues](http://beer-quest.uksouth.azurecontainer.io:3000/venues).
-
-ACI isn't the most feature rich product. HTTPS appears to require some
-additional configuration, hence HTTP! Port mapping also doesn't appear to be a
-working feature, hence the specific port.
-
-## Pushing images to Docker Hub
-
-Images are pushed to
-[hub.docker.com/repository/docker/st3v3nhunt/beer-quest](https://hub.docker.com/repository/docker/st3v3nhunt/beer-quest)
-on Docker Hub for every commit to `main`.
+* Each PR should create a review environment for testing prior to merge to
+  `main`.
