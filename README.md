@@ -84,3 +84,21 @@ to use whilst developing the application.
   venues returned.
 * The API could do with being documented so clients would have an easy time
   using it.
+* It would be good to have tags create images with the appropriate tag.
+
+## Deployed application
+
+A version of the application has been (manually) deployed to
+[Azure Container Instances](https://azure.microsoft.com/en-us/services/container-instances/#overview)
+(ACI) and is available at
+[http://beer-quest.uksouth.azurecontainer.io:3000/venues](http://beer-quest.uksouth.azurecontainer.io:3000/venues).
+
+ACI isn't the most feature rich product. HTTPS appears to require some
+additional configuration, hence HTTP! Port mapping also doesn't appear to be a
+working feature, hence the specific port.
+
+## Pushing images to Docker Hub
+
+Images are pushed to
+[hub.docker.com/repository/docker/st3v3nhunt/beer-quest](https://hub.docker.com/repository/docker/st3v3nhunt/beer-quest)
+on Docker Hub for every commit to `main`.
