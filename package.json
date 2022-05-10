@@ -26,13 +26,6 @@
     "geolib": "^3.3.3"
   },
   "standard": {
-    "globals": [
-      "beforeAll",
-      "beforeEach",
-      "describe",
-      "expect",
-      "jest",
-      "test"
-    ]
+    "env": [ "jest" ]
   }
 }

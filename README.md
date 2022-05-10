@@ -1,9 +1,9 @@
-# beer-quest
+# Beer Quest API - Node.js
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Known Vulnerabilities](https://snyk.io/test/github/st3v3nhunt/beer-quest/badge.svg)](https://snyk.io/test/github/st3v3nhunt/beer-quest)
 
-> X-Lab Engineering Interview Challenge
+> X-Lab Engineering interview challenge
 
 ## Getting started
 
@@ -85,7 +85,7 @@ Images are pushed to
 [hub.docker.com/repository/docker/st3v3nhunt/beer-quest](https://hub.docker.com/repository/docker/st3v3nhunt/beer-quest)
 on Docker Hub for every commit to `main`.
 
-## Thoughts and considerations
+## Some thoughts, considerations and next steps
 
 * Some venues appear to be closed, these should probably be filtered out from
   the dataset either preload or during the load.
